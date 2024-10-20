@@ -66,13 +66,13 @@ php artisan config:clear
 
 ## Установка API в Laravel
 
-Для того, чтобы добавить в ваш проект laravel возможность обращение, как к API нужно ввести следующую комманду (https://laravel.com/docs/11.x/sanctum#installation):
+Для того, чтобы добавить в ваш проект laravel возможность обращение, как к API нужно ввести следующую комманду [комманду](https://laravel.com/docs/11.x/sanctum#installation):
 
 ```shell
 php artisan install:api
 ```
 
-Если вам после этого нужно настроить настройки cors, нужно ввести следующую команду для установки файла cors.php (https://laravel.com/docs/11.x/sanctum#cors-and-cookies):
+Если вам после этого нужно настроить настройки cors, нужно ввести следующую команду для установки файла [cors.php](https://laravel.com/docs/11.x/sanctum#cors-and-cookies):
 
 ```shell
 php artisan config:publish cors
