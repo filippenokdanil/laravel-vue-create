@@ -33,6 +33,7 @@ DB_PASSWORD=[пароль от пользователя]
 Также нужно поменять настройки подключения в файле /config/database.php :
 
 ```php
+<!-- Напрямую -->
 // Здесь мы выбираем способ подключения (pgsql/sqlite/mysql/mariadb)
 'default' => env('DB_CONNECTION', 'pgsql'),
 
