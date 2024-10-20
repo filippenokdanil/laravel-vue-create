@@ -10,6 +10,10 @@ cd ./derictory
 
 Дальше нужно устоновить сам Laravel, для этого нужно при помощи композера запустить процесс:
 
+```comment
+// Если laravel не установлен глобально в композере
+```
+
 ```shell
 // Если laravel не установлен глобально в композере
 composer create-project laravel/laravel [projectName]
