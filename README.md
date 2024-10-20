@@ -36,6 +36,7 @@ DB_PASSWORD=[пароль от пользователя]
 // Здесь мы выбираем способ подключения (pgsql/sqlite/mysql/mariadb)
 'default' => env('DB_CONNECTION', 'pgsql'),
 
+// Дальше настраиваем наш модуль, который мы выбрали
 'connections' => [
     'pgsql' => [
         'driver' => 'pgsql',
