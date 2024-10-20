@@ -12,7 +12,8 @@ cd ./derictory
 
 ```shell
 <!-- Напрямую -->
-[comment] Напрямую 
+[comment] Напрямую
+[//]: # (This may be the most platform independent comment)
 composer create-project laravel/laravel [projectName]
 
 <!-- Глобально -->
