@@ -12,7 +12,7 @@ cd ./derictory
 
 ```shell
 <!-- Напрямую -->
-// Напрямую 
+[comment] Напрямую 
 composer create-project laravel/laravel [projectName]
 
 <!-- Глобально -->
