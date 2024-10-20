@@ -22,8 +22,39 @@ laravel new [projectName]
 
 Дальше необходимо настроить файл .env внутри папки проекта:
 ```env
-asdadadadas
+DB_CONNECTION=[pgsql/sqlite/mysql/mariadb]
+DB_HOST=[название хоста (127.0.0.1 или PostgreSQL-16)]
+DB_PORT=[порт, где размещена бд]
+DB_DATABASE=[название бд]
+DB_USERNAME=[имя пользователя в бд]
+DB_PASSWORD=[пароль от пользователя]
 ```
+
+Также нужно поменять настройки подключения в файле /config/database.php :
+
+```php
+// Здесь мы выбираем способ подключения (pgsql/sqlite/mysql/mariadb)
+'default' => env('DB_CONNECTION', 'pgsql'),
+
+'connections' => [
+    'pgsql' => [
+        'driver' => 'pgsql',
+        'url' => env('DB_URL'),
+        'host' => env('DB_HOST', 'PostgreSQL-16'),
+        'port' => env('DB_PORT', '5432'),
+        'database' => env('DB_DATABASE', 'mydb'),
+        'username' => env('DB_USERNAME', 'postgres'),
+        'password' => env('DB_PASSWORD', '123456'),
+        'charset' => env('DB_CHARSET', 'utf8'),
+        'prefix' => '',
+        'prefix_indexes' => true,
+        'search_path' => 'public',
+        'sslmode' => 'prefer',
+    ],
+],
+```
+
+
 
 ## Установка Vue
 
