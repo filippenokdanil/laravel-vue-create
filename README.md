@@ -376,3 +376,28 @@ Route::get('{any?}', function () {
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 ```
+
+## Как убрать build в url странице
+
+Для этого нужно просто назначить изначальный url для компиляции в router:
+
+```js
+const router = createRouter({
++    history: createWebHistory(import.meta.env.VITE_BASE_URL || "/"),
+    routes: [
+        {
+            path: "/",
+            name: "Main",
+            meta: { title: "Главная" },
+            component: Main,
+        },
+    ],
+});
+```
+
+А также настроить env переменную в .env:
+
+```env
++    VITE_BASE_URL="/"
+```
+
