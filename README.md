@@ -78,6 +78,13 @@ php artisan install:api
 php artisan config:publish cors
 ```
 
+Далее следует в файле /config/cors.php поменять 'allowed_origins':
+
+```php
+'allowed_origins' => ['https://localhost']
+```
+
+
 ## Установка Vue
 
 Vite идет из коробки вместе с Laravel, а значит нам достаточно установить и настроить Vue. Я буду использовать Vue 3. Некоторым это может не понравится, но я могу обосновать свое решение. Сам по себе Vue 3 колоссально не отличается от второй версии. Он позволяет использовать как [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html), так и старый добрый [Options API](https://v3.ru.vuejs.org/ru/api/options-api.html). Однако, если третья версия все же не устраивает по каким-то причинам, например важный для вас набор пакетов не поддерживает Vue 3, то можно использовать вторую.
