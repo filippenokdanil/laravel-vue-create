@@ -381,7 +381,7 @@ Route::get('{any?}', function () {
 
 Для этого нужно просто назначить изначальный url для компиляции в router:
 
-```js
+```diff
 const router = createRouter({
 +    history: createWebHistory(import.meta.env.VITE_BASE_URL || "/"),
     routes: [
@@ -397,7 +397,7 @@ const router = createRouter({
 
 А также настроить env переменную в .env:
 
-```env
+```diff
 +    VITE_BASE_URL="/"
 ```
 
