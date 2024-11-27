@@ -89,16 +89,16 @@ php artisan config:publish cors
 
 Vite идет из коробки вместе с Laravel, а значит нам достаточно установить и настроить Vue. Я буду использовать Vue 3. Некоторым это может не понравится, но я могу обосновать свое решение. Сам по себе Vue 3 колоссально не отличается от второй версии. Он позволяет использовать как [Composition API](https://vuejs.org/guide/extras/composition-api-faq.html), так и старый добрый [Options API](https://v3.ru.vuejs.org/ru/api/options-api.html). Однако, если третья версия все же не устраивает по каким-то причинам, например важный для вас набор пакетов не поддерживает Vue 3, то можно использовать вторую.
 
-Установим Vue и Vue Loader.
+Установим Vue.
 
 ```shell
-npm i vue@next vue-loader@next
+npm install vue@latest
 ```
 
 Также не забудем про драйвер, который позволит использовать Vue вместе с Vite.
 
 ```shell
-npm i @vitejs/plugin-vue
+npm install @vitejs/plugin-vue
 ```
 
 ## Настройка Vite
@@ -252,7 +252,7 @@ export default defineConfig({
 Для начала установим сам Vue Router.
 
 ```shell
-npm i vue-router@4
+npm install vue-router
 ```
 Теперь в папку `src` добавим все необходимое, чтобы наш маршрутизатор заработал. Я создал папку `router` и поместил в нее несколько файликов:
 
