@@ -354,8 +354,18 @@ Route::get('{any?}', function () {
 })->where('any', '.*');
 ```
 
-Вот теперь другое дело!
-## Vuex
-_Coming soon.._
-## TypeScript
-_Coming soon.._
+## Настройка .htaccess на сервере для перенаправления на laravel
+
+Для этого нужно просто поместить следующий код внутри файла .htaccess в корне проекта:
+
+```htaccess
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} !^public
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+```
