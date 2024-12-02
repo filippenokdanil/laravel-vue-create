@@ -79,6 +79,12 @@ php artisan view:cache
 php artisan optimize
 ```
 
+Или же можно обновить всё одной командой:
+
+```shell
+php artisan optimize:clear
+```
+
 ## Установка API в Laravel
 
 Для того, чтобы добавить в ваш проект laravel возможность обращение, как к API нужно ввести следующую комманду [комманду](https://laravel.com/docs/11.x/sanctum#installation):
