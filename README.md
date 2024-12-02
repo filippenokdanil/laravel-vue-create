@@ -64,6 +64,21 @@ php artisan migrate
 php artisan config:clear
 ```
 
+## Если вдруг laravel не видит новые методы
+
+Для этого необходимо выполнить следующие команды:
+
+```shell
+php artisan cache:clear 
+php artisan config:clear
+hp artisan config:cache
+php artisan route:clear
+php artisan view:clear
+php artisan route:cache
+php artisan view:cache
+php artisan optimize
+```
+
 ## Установка API в Laravel
 
 Для того, чтобы добавить в ваш проект laravel возможность обращение, как к API нужно ввести следующую комманду [комманду](https://laravel.com/docs/11.x/sanctum#installation):
