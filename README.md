@@ -15,6 +15,7 @@ cd ./derictory
 composer create-project laravel/laravel [projectName]
 
 <!-- Глобально -->
+composer global require laravel/installer
 laravel new [projectName]
 ```
 
