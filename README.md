@@ -203,12 +203,24 @@ createApp(App)
 ```html
 <!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+    <head>
+        <!-- Метатеги -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <!-- SEO -->
+        <meta name="keywords" content="ключевые слова, ключ, слово">
+        <meta name="description" content="Описание лучшего сайта!">
+        <meta name="author" content="разработчик">
+
+        <!-- Open Graph -->
+        <meta property="og:url" content="https://best-site-ever.ru/">
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Заходи на сайт!">
+        <meta property="og:description" content="Тут лучшие картинки и остальное...">
+        <meta property="og:image" content="https://best-site-ever.ru/storage/img/logo.webp">
+    </head>
 <body>
 <!-- элемент, в котором будет Vue приложение -->
 <div id="app"></div>
