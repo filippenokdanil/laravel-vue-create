@@ -221,12 +221,13 @@ createApp(App)
         <meta property="og:description" content="Тут лучшие картинки и остальное...">
         <meta property="og:image" content="https://best-site-ever.ru/storage/img/logo.webp">
     </head>
-<body>
-<!-- элемент, в котором будет Vue приложение -->
-<div id="app"></div>
-<!-- импорт всего необходимого через Vite -->
-@vite('resources/js/app.js')
-</body>
+    <body>
+        <!-- элемент, в котором будет Vue приложение -->
+        <div id="app"></div>
+    
+        <!-- импорт всего необходимого через Vite -->
+        @vite('resources/js/app.js')
+    </body>
 </html>
 ```
 
