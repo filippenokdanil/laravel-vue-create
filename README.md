@@ -478,17 +478,72 @@ const router = createRouter({
 # 2. Vue 3.
 ## 2.1. Отмотка страницы при переключении страниц.
 
-Для начала необходимо выбрать дерикторию, где будет находится наш проект с Laravel. Для этого достаточно в консоли просто перейти туда при помощи команды cd:
+Есть несколько способов сделать отмотку страницы:
+
+- Добавление хука внутри объявления объекта **router**.
 
 ```js
-scrollBehavior(to, from, savedPosition) {
-  if (savedPosition) {
-    return savedPosition;
-  } else {
-    return { top: 0 };
-  }
-},
+const router = createRouter({
+	history: createWebHistory(import.meta.env.VITE_BASE_URL || "/"),
+	routes: [
+		{
+			path: "/",
+			name: "Main",
+			component: Main,
+		}
+	],
+	/* Отмотка страницы */
+	scrollBehavior(to, from, savedPosition) {
+		if (savedPosition) {
+			return savedPosition;
+		} else {
+			return { top: 0 };
+		}
+	},
+});
 ```
+
+- Глобальный хук для прокрутки вверх после объявления **router**.
+
+```js
+// Глобальный хук для прокрутки вверх
+router.afterEach(() => {
+	window.scrollTo(0, 0);
+});
+```
+
+- Использование хуков компонента.
+
+```js
+<template>
+	<div>
+		<!-- Ваш шаблон -->
+	</div>
+</template>
+
+<script>
+export default {
+	name: "MyComponent",
+	mounted() {
+		window.scrollTo(0, 0);
+	},
+};
+</script>
+```
+
+- Использование директивы.
+
+```js
+// directives/scrollToTop.js
+export default {
+	mounted(el) {
+		el.addEventListener("click", () => {
+			window.scrollTo(0, 0);
+		});
+	},
+};
+```
+
 
 ## 2.2. Изменение заголовка html страницы.
 
