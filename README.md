@@ -536,11 +536,11 @@ export default {
 ```js
 // directives/scrollToTop.js
 export default {
-	mounted(el) {
-		el.addEventListener("click", () => {
-			window.scrollTo(0, 0);
-		});
-	},
+  mounted(el) {
+    el.addEventListener("click", () => {
+      window.scrollTo(0, 0);
+    });
+  },
 };
 ```
 
