@@ -339,12 +339,12 @@ npm install vue-router
 
 ```vue
 <template>
-  Home page
+   Home page
 </template>
 
 <script>
 export default {
-  name: 'Home'
+   name: 'Home'
 }
 </script>
 ```
@@ -366,17 +366,17 @@ import Home from '../pages/home.vue'
 import About from '../pages/about.vue';
 
 export default [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home,
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: About,
-    },
-]
+   {
+      path: '/',
+      name: 'Home',
+      component: Home,
+   },
+   {
+      path: '/about',
+      name: 'About',
+      component: About,
+   },
+];
 ```
 
 Теперь вернемся к `router/index.js` и закончим настройку нашего роутера.
@@ -386,8 +386,8 @@ import {createWebHistory, createRouter} from 'vue-router';
 import routes from './routes'
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+   history: createWebHistory(),
+   routes,
 });
 
 export default router;
@@ -411,16 +411,16 @@ createApp(App)
 
 ```vue
 <template>
-  <ul>
-    <li><router-link to="/">Home</router-link></li>
-    <li><router-link to="/about">About</router-link></li>
-  </ul>
-  <router-view />
+   <ul>
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/about">About</router-link></li>
+   </ul>
+   <router-view />
 </template>
 
 <script>
 export default {
-  name: 'App'
+   name: 'App'
 }
 </script>
 ```
@@ -458,14 +458,14 @@ Route::get('{any?}', function () {
 ```diff
 const router = createRouter({
 +    history: createWebHistory(import.meta.env.VITE_BASE_URL || "/"),
-    routes: [
-        {
-            path: "/",
-            name: "Main",
-            meta: { title: "Главная" },
-            component: Main,
-        },
-    ],
+   routes: [
+      {
+         path: "/",
+         name: "Main",
+         meta: { title: "Главная" },
+         component: Main,
+      },
+   ],
 });
 ```
 
@@ -484,22 +484,22 @@ const router = createRouter({
 
 ```js
 const router = createRouter({
-	history: createWebHistory(import.meta.env.VITE_BASE_URL || "/"),
-	routes: [
-		{
-			path: "/",
-			name: "Main",
-			component: Main,
-		}
-	],
-	/* Отмотка страницы */
-	scrollBehavior(to, from, savedPosition) {
-		if (savedPosition) {
-			return savedPosition;
-		} else {
-			return { top: 0 };
-		}
-	},
+   history: createWebHistory(import.meta.env.VITE_BASE_URL || "/"),
+   routes: [
+      {
+         path: "/",
+         name: "Main",
+         component: Main,
+      }
+   ],
+   /* Отмотка страницы */
+   scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+         return savedPosition;
+      } else {
+         return { top: 0 };
+      }
+   },
 });
 ```
 
@@ -508,7 +508,7 @@ const router = createRouter({
 ```js
 // Глобальный хук для прокрутки вверх
 router.afterEach(() => {
-	window.scrollTo(0, 0);
+   window.scrollTo(0, 0);
 });
 ```
 
@@ -516,17 +516,17 @@ router.afterEach(() => {
 
 ```js
 <template>
-	<div>
-		<!-- Ваш шаблон -->
-	</div>
+   <div>
+      <!-- Ваш шаблон -->
+   </div>
 </template>
 
 <script>
 export default {
-	name: "MyComponent",
-	mounted() {
-		window.scrollTo(0, 0);
-	},
+   name: "MyComponent",
+   mounted() {
+      window.scrollTo(0, 0);
+   },
 };
 </script>
 ```
@@ -536,11 +536,11 @@ export default {
 ```js
 // directives/scrollToTop.js
 export default {
-  mounted(el) {
-    el.addEventListener("click", () => {
-      window.scrollTo(0, 0);
-    });
-  },
+   mounted(el) {
+      el.addEventListener("click", () => {
+         window.scrollTo(0, 0);
+      });
+   },
 };
 ```
 
