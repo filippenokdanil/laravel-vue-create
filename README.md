@@ -480,8 +480,14 @@ const router = createRouter({
 
 Для начала необходимо выбрать дерикторию, где будет находится наш проект с Laravel. Для этого достаточно в консоли просто перейти туда при помощи команды cd:
 
-```shell
-cd ./derictory
+```js
+scrollBehavior(to, from, savedPosition) {
+	if (savedPosition) {
+		return savedPosition;
+	} else {
+		return { top: 0 };
+	}
+},
 ```
 
 ## 2.2. Изменение заголовка html страницы.
