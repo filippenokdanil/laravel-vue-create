@@ -573,5 +573,5 @@ router.beforeEach((to, from, next) => {
 Для этого существует следующий синтаксик:
 
 ```php
---path=database/migrations/1_create_employees_table.php
+php artisan migrate:refresh --path=database/migrations/1_create_employees_table.php
 ```
