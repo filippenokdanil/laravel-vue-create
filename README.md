@@ -620,10 +620,82 @@ const app = createApp({
                   break;
                }
 
-            return Promise.reject(error);
-         });
-},
+         return Promise.reject(error);
+      });
+   },
 });
+```
+
+- Сделать свой экземпляр наследник от axios. Для этого создаём отдельный файл .js, который будет нашим экземпляром: 
+```js
+import axios from 'axios';
+
+// Создайте экземпляр Axios
+const axiosInstance = axios.create({
+  baseURL: 'https://your-api-url.com', // Замените на ваш URL
+  timeout: 10000, // Установите таймаут по желанию
+});
+
+// Интерцептор для перехвата ошибок ответа
+axiosInstance.interceptors.response.use(
+   response => {
+      // Если запрос успешен, просто возвращаем ответ
+      return response;
+   },
+   error => {
+      // Обработка ошибок
+      if (error.response) {
+         // Сервер вернул ошибку с кодом статуса, который выходит за рамки 2xx
+         switch (error.response.status) {
+            case 401:
+               // Обработка ошибки 401 (Unauthorized)
+               console.error('Unauthorized, redirect to login or handle as needed');
+               // Здесь вы можете перенаправить пользователя на страницу входа или выполнить другие действия
+               break;
+            case 404:
+               // Обработка ошибки 404 (Not Found)
+               console.error('Not Found');
+               break;
+               // Добавьте другие случаи по мере необходимости
+               default:
+                  console.error('An unexpected error occurred');
+         }
+      } else if (error.request) {
+         // Запрос был сделан, но ответ не получен
+         console.error('No response received');
+      } else {
+         // Что-то случилось при настройке запроса
+         console.error('Error', error.message);
+      }
+
+      // Возвращаем обещание с ошибкой, чтобы его можно было обработать дальше
+      return Promise.reject(error);
+   }
+);
+
+export default axiosInstance;
+```
+
+После чего наш экземпляр можно будет использовать далее в проекте:
+
+```js
+import axiosInstance from './axiosConfig';
+
+export default {
+   methods: {
+      fetchData() {
+         axiosInstance.get('/your-endpoint')
+            .then(response => {
+               // Обработка успешного ответа
+               console.log(response.data);
+            })
+            .catch(error => {
+                // Обработка ошибок, если необходимо
+                console.error('There was an error!', error);
+            });
+      }
+   }
+}
 ```
 
 # 3. Laravel 11.
