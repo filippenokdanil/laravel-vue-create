@@ -591,26 +591,40 @@ axios({
    url: `/api/index`,
    data: object
 }).then((response) => {
-   if (response.data.status) {
-      this.addresses = response.data.data;
-   } else {
-      let debbugStory = {
-         title: "Ошибка.",
-         body: response.data.message,
-         type: "Error",
-      };
-      this.$store.commit("debuggerState", debbugStory);
-   }
+   // ...
 }).catch((error) => {
-   console.log(error);
+   // ...
 }).finally(() => {
-   this.loading.loader.addresses = false;
+   // ...
 });
 ```
 
 Если вы хотите, чтобы все ошибки, которые возвращает catch отслеживались глобального из одного места, тогда можно сделать следующее:
-- Добавить глобальный хук внутри файла main.js (который инициализирует vue).
+- Добавить глобальный хук внутри файла main.js (который инициализирует vue). 
+```js
+import axios from "axios";
 
+const app = createApp({
+   extends: App,
+   created() {
+      // Отлов ошибок
+      axios.interceptors.response.use(
+         (response) => response,
+         (error) => {
+            console.log("ErrorHandler: " + error);
+
+            switch (error.response.status) {
+               // Не авторизован
+               case 401:
+                  this.$store.commit("logout");
+                  break;
+               }
+
+            return Promise.reject(error);
+         });
+},
+});
+```
 
 # 3. Laravel 11.
 ## 3.1. Очистка и запуск конкретного файла миграции.
