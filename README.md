@@ -31,7 +31,9 @@
 
 	2.2. Изменение заголовка html страницы.
 
-3. **Laravel 11**.
+        2.3. Установка axios, а также отлов ошибок в проекте.
+
+4. **Laravel 11**.
 
 	3.1. Очистка и запуск конкретного файла миграции.
 
@@ -544,7 +546,6 @@ export default {
 };
 ```
 
-
 ## 2.2. Изменение заголовка html страницы.
 
 Чтобы менять заголовок страницы во время переключения страниц при помощи vue 3 нужно добавить в файл маршрутизации хук, который перехватывает процесс переключения страницы и меняет заголовок:
@@ -567,6 +568,50 @@ router.beforeEach((to, from, next) => {
    component: () => import("../views/main/MainHome.vue"),
 },
 ```
+
+## 2.3. Установка axios, а также отлов ошибок в проекте.
+
+Чтобы установить axios, необходимо ввести следующий код:
+
+```shell
+npm install axios
+```
+
+Для использования axios достаточно просто его импортировать в ваш модуль:
+
+```js
+import axios from 'axios';
+```
+
+Синтаксик стандартного вызова через axios выглядит следующим образом:
+
+```js
+axios({
+   method: "post",
+   url: `/api/index`,
+   data: object
+}).then((response) => {
+   if (response.data.status) {
+      this.addresses = response.data.data;
+   } else {
+      let debbugStory = {
+         title: "Ошибка.",
+         body: response.data.message,
+         type: "Error",
+      };
+      this.$store.commit("debuggerState", debbugStory);
+   }
+}).catch((error) => {
+   console.log(error);
+}).finally(() => {
+   this.loading.loader.addresses = false;
+});
+```
+
+Если вы хотите, чтобы все ошибки, которые возвращает catch отслеживались глобального из одного места, тогда можно сделать следующее:
+- Добавить глобальный хук внутри файла main.js (который инициализирует vue).
+
+
 # 3. Laravel 11.
 ## 3.1. Очистка и запуск конкретного файла миграции.
 
