@@ -631,49 +631,112 @@ const app = createApp({
 import axios from 'axios';
 
 // Создайте экземпляр Axios
-const axiosInstance = axios.create({
-  baseURL: 'https://your-api-url.com', // Замените на ваш URL
-  timeout: 10000, // Установите таймаут по желанию
+import axios from "axios";
+import store from "../store/index.js";
+
+/* Создание axios */
+const api = axios.create({
+   // Базовый адрес
+   baseURL: "/api",
+   // Время запроса
+   timeout: 10000,
+
+   // Заголовки
+   headers: {
+      Accept: "application/json",
+   },
 });
 
-// Интерцептор для перехвата ошибок ответа
-axiosInstance.interceptors.response.use(
-   response => {
-      // Если запрос успешен, просто возвращаем ответ
-      return response;
-   },
-   error => {
-      // Обработка ошибок
-      if (error.response) {
-         // Сервер вернул ошибку с кодом статуса, который выходит за рамки 2xx
-         switch (error.response.status) {
-            case 401:
-               // Обработка ошибки 401 (Unauthorized)
-               console.error('Unauthorized, redirect to login or handle as needed');
-               // Здесь вы можете перенаправить пользователя на страницу входа или выполнить другие действия
-               break;
-            case 404:
-               // Обработка ошибки 404 (Not Found)
-               console.error('Not Found');
-               break;
-               // Добавьте другие случаи по мере необходимости
-               default:
-                  console.error('An unexpected error occurred');
-         }
-      } else if (error.request) {
-         // Запрос был сделан, но ответ не получен
-         console.error('No response received');
-      } else {
-         // Что-то случилось при настройке запроса
-         console.error('Error', error.message);
+// Перехватчик запросов (добавление токена)
+api.interceptors.request.use((config) => {
+   const token = localStorage.getItem("token");
+   if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+   }
+
+   return config;
+});
+
+/* Перехват ответа с сервера */
+api.interceptors.response.use(
+   (response) => {
+      // Проверка успеха запроса
+      if (!response.data.success) {
+         if (response.data.message) {
+            concole.log('Ошибка от сервера');
+         } else {
+            concole.log('Запрос не выполнен');	
+         };
+
+         return Promise.resolve(null);
       }
 
-      // Возвращаем обещание с ошибкой, чтобы его можно было обработать дальше
-      return Promise.reject(error);
+      if (response.data.debug) {
+         concole.log('Запрос выполнен!');	
+      }
+
+      return Promise.resolve(response.data);
+   },
+   (error) => {
+      // Нет ответа от сервера (нет интернета, таймаут)
+      if (!error.response) {
+         concole.log('Сервер не отвечает.');	
+
+         return Promise.resolve(null);
+      }
+
+      const status = error.response.status;
+
+      // Unauthorized
+      if (status == 401) {
+         store.commit("removeToken");
+         return Promise.resolve(null);
+      }
+
+      // Forbidden
+      if (status == 403) {
+         concole.log('Нет доступа.');	
+
+         return Promise.resolve(null);
+      }
+
+      // Not Found
+      if (status == 404) {
+         concole.log('Ресурс не найден!');	
+
+         return Promise.resolve(null);
+      }
+
+      // Method Not Allowed
+      if (status == 405) {
+         concole.log('Метод не зарегистрирован!');	
+
+         return Promise.resolve(null);
+      }
+
+      // Method Not Allowed, Internal Server Error
+      if (status == 422 || status == 500) {
+         if (error.response.data.errors) {
+            for (let key in error.response.data.errors) {
+               for (let item of error.response.data.errors[key]) {
+	         concole.log('Ошибка: ' + item);	
+               }
+            }
+         } else {
+            concole.log(error.response.data);	
+         }
+
+         return Promise.resolve(null);
+      }
+
+      // Неизвестная ошибка
+      concole.log('Не зарегистрированная ошибка.');
+
+      return Promise.resolve(null);
    }
 );
 
-export default axiosInstance;
+export default api;
 ```
 
 После чего наш экземпляр можно будет использовать далее в проекте:
