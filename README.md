@@ -742,20 +742,34 @@ export default api;
 После чего наш экземпляр можно будет использовать далее в проекте:
 
 ```js
-import axiosInstance from './axiosConfig';
+import api from './api';
 
 export default {
    methods: {
       fetchData() {
-         axiosInstance.get('/your-endpoint')
-            .then(response => {
-               // Обработка успешного ответа
-               console.log(response.data);
-            })
-            .catch(error => {
-                // Обработка ошибок, если необходимо
-                console.error('There was an error!', error);
-            });
+         api({
+            method: "put",
+            url: "/save", // /api уже добавлен в начало адреса
+            data: {
+               id: this.id,
+               name: this.name,
+               address: this.address,
+            },
+         })
+         .then((response) => {
+            if (response === null) {
+               return;
+            }
+
+            try {
+               // ...
+            } catch (error) {
+               // ...
+            }
+         })
+         .finally(() => {
+            this.disabled = false;
+         });
       }
    }
 }
