@@ -126,6 +126,12 @@ php artisan optimize
 php artisan optimize:clear
 ```
 
+Если ничего не помогло, попробуйте обновить автозагрузку классов composer:
+
+```shell
+composer dump-autoload
+```
+
 ## 1.4. Установка API в Laravel
 
 Для того, чтобы добавить в ваш проект laravel возможность обращение, как к API нужно ввести следующую комманду [комманду](https://laravel.com/docs/11.x/sanctum#installation):
