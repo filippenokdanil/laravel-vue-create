@@ -1,4 +1,4 @@
-# Vue3 + Laravel 11 + Vite.
+# Vue 3 + Laravel 12 + Vite.
 Данный репозиторий является форком другого, который уже давно не менялся и не редактировался. Причина создания этого репозитория заключается в распространении информации о работе со Vue 3 и Laravel 11, чтобы повысить популярность данного стека технологий для разработки. Здесь я буду дополнять информацию как по связке фреймворков, так и про каждый по отдельности. 
 ## Оглавление
 1. **Создание проекта на базе Vue 3 (frontend) и Laravel (backend)**.
@@ -138,11 +138,25 @@ composer dump-autoload
 
 ## 1.4. Установка API в Laravel
 
-Для того, чтобы добавить в ваш проект laravel возможность обращение, как к API нужно ввести следующую комманду [комманду](https://laravel.com/docs/11.x/sanctum#installation):
+Для того, чтобы добавить в ваш проект laravel возможность обращение, как к API нужно ввести следующую комманду [комманду](https://laravel.com/docs/12.x/sanctum):
 
 ```shell
 php artisan install:api
 ```
+
+Чтобы выдавать токены для авторизации мало просто взять и установить Sanctum, необходимо добавить в модель User HasApiTokens [комманду](https://laravel.com/docs/11.x/sanctum#installation):
+
+```diff
+/app/Models/User.php
+
++use Laravel\Sanctum\HasApiTokens;
+
+class User extends Authenticatable
+{
+    /** @use HasFactory<\Database\Factories\UserFactory> */
++    use HasFactory, Notifiable, HasApiTokens;
+```
+
 
 Если вам после этого нужно настроить настройки cors, нужно ввести следующую команду для установки файла [cors.php](https://laravel.com/docs/11.x/sanctum#cors-and-cookies):
 
