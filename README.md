@@ -26,6 +26,8 @@
    1.11. Как убрать build в url странице.
 
    1.12. Если laravel blade не может получить доступ из вайта ко vue.
+
+   1.13. Доступ к файлам через Storage, и также настройка файловых систем.
    
 3. **Vue 3**.
 
@@ -516,6 +518,50 @@ const router = createRouter({
    },
 ```
 
+## 1.13. Доступ к файлам через Storage, и также настройка файловых систем.
+
+Для того, чтобы файлы на сервере сделать публичными, необходимо создать символьную ссылку на папку при помощи команды: 
+
+```shell
+php artisan storage:link
+```
+
+Чтобы получить доступ на клиенте, недостаточно просто создать символьную ссылку, необходимо настроить файловые системы:
+
+```diff
+    'disks' => [
+
+        'local' => [
+            'driver' => 'local',
+-            'root' => storage_path('app/private'),
++            'root' => storage_path('app'),
+-            'serve' => true,
+            'throw' => false,
+-            'report' => false,
+        ],
+
+        'public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+-            'report' => false,
+        ],
+
+	 // Приватный диск с файлами без доступа на клиент
++        'private' => [
++            'driver' => 'local',
++            'root' => storage_path('app/private'),
++            'url' => env('APP_URL').'/private',
++            'serve' => true,
++            'throw' => false,
++        ],
+
+	// ...
+    ],
+```
+
 # 2. Vue 3.
 ## 2.1. Отмотка страницы при переключении страниц.
 
@@ -814,7 +860,7 @@ export default {
 }
 ```
 
-# 3. Laravel 11.
+# 3. Laravel 12.
 ## 3.1. Очистка и запуск конкретного файла миграции.
 
 Для этого существует следующий синтаксик:
