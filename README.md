@@ -246,20 +246,27 @@ export default {
 </script>
 ```
 
-Теперь откроем `resources/js/app.js` и добавим немного кода.
+Теперь откроем `resources/vue/app.js` и добавим немного кода.
 
 ```javascript
-import './bootstrap';
+/* Создание приложения vue */
+import { createApp } from "vue";
+import App from "./App.vue";
 
-// импортируем экземпляр Vue приложения
-import { createApp } from 'vue';
+const app = createApp(App);
 
-// наш тот самый первый компонент
-import App from './vue/App.vue';
+/* Импорт глобальных компонентов */
+import component from "../../component.vue";
 
-// и немного дефолтных мелочей
-createApp(App)
-    .mount('#app')
+/* Импорт файлов */
+import "./assets/css/style.css"; // стили
+import Icons from "./assets/json/Icons.json"; // иконки
+
+/* Регистрация глобальных переменных */
+app.provide("icons", Icons); // стили
+
+/* Монтирование приложения */
+app.mount("#app");
 ```
 
 Последнее - это добавление нашего скрипта на саму страничку. С появлением Vite появилась и директива `@vite()`, которая нам сейчас пригодится.
@@ -293,7 +300,7 @@ createApp(App)
         <div id="app"></div>
     
         <!-- импорт всего необходимого через Vite -->
-        @vite('resources/js/app.js')
+        @vite('resources/vue/app.js')
     </body>
 </html>
 ```
@@ -423,7 +430,7 @@ export default router;
 
 Я не буду пояснять за каждую строчку, так как это обычная инициализация vue-router, как и в других приложениях.
 
-Осталось самое главное - заюзать наш роутер в самом Vue. Для этого откроем `resources/js/app.js` и немного подредактируем:
+Осталось самое главное - заюзать наш роутер в самом Vue. Для этого откроем `resources/vue/app.js` и немного подредактируем:
 
 ```diff
 import { createApp } from 'vue';
